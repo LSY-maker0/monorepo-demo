@@ -1,5 +1,5 @@
 {
-  "name": "monorepo-demo",
+  "name": "duyi-monorepo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,12 @@
     "lint:spellcheck": "cspell lint \"(packages|apps)/**/*.{js,ts,mjs,cjs,json,css,less,scss,vue,html,md}\"",
     "commit": "git-cz",
     "prepare": "husky",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "build": "node ./scripts/build.js",
+    "dev": "node ./scripts/dev.js",
+    "test": "vitest",
+    "publish:utils": "pnpm --filter \"@duyi-monorepo/utils\" publish --no-git-checks",
+    "publish:components": "pnpm --filter \"@duyi-monorepo/components\" publish --no-git-checks"
   },
   "config": {
     "commitizen": {
@@ -30,8 +35,13 @@
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
     "@cspell/dict-lorem-ipsum": "^4.0.5",
-    "@eslint/js": "^10.0.1",
-    "@types/node": "^25.5.0",
+    "@eslint/js": "^9.36.0",
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@types/node": "^24.5.2",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vitest/browser": "^3.2.4",
     "commitizen": "^4.3.1",
     "cspell": "^9.7.0",
     "cz-git": "^1.12.0",
@@ -41,9 +51,15 @@
     "eslint-plugin-vue": "^10.8.0",
     "globals": "^17.4.0",
     "husky": "^9.1.7",
-    "lint-staged": "^16.4.0",
-    "prettier": "^3.8.1",
-    "typescript": "^6.0.2",
-    "typescript-eslint": "^8.57.2"
+    "lint-staged": "^16.2.0",
+    "prettier": "^3.6.2",
+    "rollup": "^4.52.2",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.44.0",
+    "vitest": "^3.2.4",
+    "vitest-browser-vue": "^1.1.0",
+    "vue": "^3.5.21"
   }
 }
