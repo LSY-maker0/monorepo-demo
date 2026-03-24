@@ -573,3 +573,72 @@ export default {
 ```cmd
 #!/usr/bin/env sh
 ```
+
+## 公共库打包
+
+安装`rollup`
+
+```shell
+pnpm -Dw add rollup @rollup/plugin-node-resolve @rollup/plugin-commonjs rollup-plugin-typescript2 @rollup/plugin-terser @vitejs/plugin-vue rollup-plugin-postcss
+```
+
+- `@rollup/plugin-node-resolve`: 解析 node_modules 中的依赖
+- `@rollup/plugin-commonjs`: 将 CommonJS 模块转为 ESM
+- `rollup-plugin-typescript2`: 让 Rollup 支持 TS 编译
+- `@rollup/plugin-terser`： 压缩和混淆
+- `@vitejs/plugin-vue`： 支持SFC编译
+- `rollup-plugin-postcss`： 处理css代码
+
+配置： 略
+
+## 子包间依赖
+
+```json
+{
+  "foo": "workspace:*",
+  "bar": "workspace:^1.0.0"
+}
+```
+
+## 单元测试
+
+安装
+
+```shell
+pnpm -Dw add vitest @vitest/browser vitest-browser-vue vue
+```
+
+添加命令
+
+```json
+"test": "vitest"
+```
+
+更改`tsconfig.json`
+
+```json
+"types": ["vitest/globals", "@vitest/browser/matchers"],
+"lib": ["esnext", "DOM"],
+```
+
+安装vscode插件： vitest
+
+编写测试脚本： 略
+
+## 发布
+
+根目录
+
+```json
+"publish:utils": "pnpm --filter \"monorepo/utils\" publish"
+```
+
+utils package.json 指定哪些是要发布到 npm 上面
+
+```json
+"files": ["dist"]
+
+"publishConfig": {"access": "public"} // 公共包
+```
+
+pnpm 开发阶段可以使用 worksapce，发布后就会更新为固定版本 "1.0.1"
